@@ -6,3 +6,9 @@ CREATE TABLE CLIENTES (
 )
 ENGINE=InnoDB
 ;
+
+INSERT INTO CLIENTES (LOGIN, SENHA, EMAIL)
+VALUES
+    ('elvis', 'pass123', 'elvis@google.com'),
+    ('asdf', 'asdfasdf', 'asdf@asdf.com'),
+    ('teste', '123456', 'teste@teste.com');
