@@ -2,7 +2,7 @@ version: '3'
 
 services:
 
-  database:
+  mysql:
     image: mysql:5.7
     environment:
         MYSQL_RANDOM_ROOT_PASSWORD: 1
@@ -23,13 +23,14 @@ services:
     build:
         context: .
     ports:
-        - "8080:80"
+        - "5000:80"
+        - "5001:443"
     environment:
-        DOTNET_ENVIRONMENT=Test
+        DOTNET_ENVIRONMENT: Docker
     networks:
         - compras-network
     depends_on:
-        - "database"
+        - "mysql"
     
 networks: 
     compras-network:

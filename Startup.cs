@@ -24,19 +24,32 @@ namespace Compras
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
+            Env = env;
         }
 
         public IConfiguration Configuration { get; }
+        public IWebHostEnvironment Env { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
+        // public void ConfigureServices(IServiceCollection services, IWebHostEnvironment env)
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors(); 
-            services.AddDbContext<DataContext>(opt => opt.UseInMemoryDatabase("Database"));
-            services.AddScoped<DataContext, DataContext>();
+            if (Env.IsEnvironment("Docker"))
+            {
+                var connectionString = Configuration["mysqlconnection:connectionString"];
+                services.AddDbContext<MysqlDataContext>(opt => opt.UseMySQL(connectionString));
+                services.AddScoped<DataContext, MysqlDataContext>();
+            }
+            else if (Env.IsDevelopment())
+            {
+                services.AddDbContext<InMemoryDataContext>(opt => opt.UseInMemoryDatabase("Database"));
+                services.AddScoped<DataContext, InMemoryDataContext>();
+            }
+
             services.AddScoped<TokenService, TokenService>();
             services.AddScoped<ClienteRepository, ClienteRepository>();
 
@@ -69,7 +82,10 @@ namespace Compras
                 app.UseSeedDb(true);
             }
 
-            app.UseHttpsRedirection();
+            if (!env.IsEnvironment("Docker"))
+            {
+                app.UseHttpsRedirection();
+            }
 
             app.UseRouting();
             app.UseCors( x => x
