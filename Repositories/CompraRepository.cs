@@ -21,7 +21,7 @@ namespace Compras.Repositories
 
         public async Task<Compra> Save(Compra compra)
         {
-            _context.Compras.Add(compra);
+            _context.Add(compra);
             await _context.SaveChangesAsync();
             return compra;
         }

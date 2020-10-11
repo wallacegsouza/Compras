@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
 using Compras.Messaging;
+using Compras.Repositories;
 
 namespace Compras.Extension
 {
@@ -9,12 +10,10 @@ namespace Compras.Extension
     {
         public static void UseConsumerBrokerCompraCreate(this IApplicationBuilder app)
         {
-
-            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
-            {
-                var consumer = serviceScope.ServiceProvider.GetService<Consumer>();
-                consumer.Start();
-            }
+            var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
+            var consumer = serviceScope.ServiceProvider.GetService<Consumer>();
+            var respository = serviceScope.ServiceProvider.GetService<CompraRepository>();
+            consumer.Start(respository);
         }
     }
 }

@@ -13,23 +13,20 @@ namespace Compras.Messaging
 {
     public class Consumer
     {
-        private readonly ConnectionBroker Broker;
-        private CompraRepository Repository;
-        private ILogger<Consumer> Logger;
+        private readonly ConnectionBroker _broker;
+        private ILogger<Consumer> _logger;
 
         public Consumer(
             ConnectionBroker conn,
-            CompraRepository repository,
             ILogger<Consumer> logger)
         {
-            Broker = conn;
-            Repository = repository;
-            Logger = logger;
+            _broker = conn;
+            _logger = logger;
         }
 
         public ActionResult Get()
         {
-            return Broker.Execute<ActionResult>((channel) => 
+            return _broker.Execute<ActionResult>((channel) => 
             {
                 var queueName = "queue-create-compra";
                 var data = channel.BasicGet(queueName, false);
@@ -42,11 +39,11 @@ namespace Compras.Messaging
                 return new JsonResult(JsonSerializer.Deserialize<Compra>(message));
             });
         }
-        public void Start()
+        public void Start(CompraRepository repository)
         {
-            Logger.LogInformation("Start Consumer");
+            _logger.LogInformation("Start Consumer");
             ConnectionFactory factory = new ConnectionFactory();
-            factory.Uri = Broker.ConnFactory.Uri;
+            factory.Uri = _broker   .ConnFactory.Uri;
             factory.DispatchConsumersAsync = true;
             // retirado o using resource
             var conn = factory.CreateConnection();
@@ -54,17 +51,16 @@ namespace Compras.Messaging
             var consumer = new AsyncEventingBasicConsumer(channel);
             consumer.Received += async (ch, ea) =>
             {
-                Logger.LogInformation("Get Message");
+                _logger.LogInformation("Get Message");
                 var message = Encoding.UTF8.GetString(ea.Body.ToArray());
-                Logger.LogInformation(message);
                 Compra compra = JsonSerializer.Deserialize<Compra>(message);
-                Logger.LogInformation("Compra = " + compra);
-                await Repository.Save(compra);
+                var result = await repository.Save(compra); // TODO não esta salvando
+                _logger.LogInformation("Retorn Repository.Save: " + result);
                 channel.BasicAck(ea.DeliveryTag, false);
                 await Task.Yield();
             };
             string tag = channel.BasicConsume("queue-create-compra", false, consumer);
-            Logger.LogInformation("BasicConsume tag = " + tag);
+            _logger.LogInformation("BasicConsume tag = " + tag);
         }
     }
 }
