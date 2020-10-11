@@ -20,7 +20,7 @@ namespace Compras.Controller
 
         [HttpPost]
         [Route("")]
-        [AllowAnonymous]
+        [Authorize]
         public string Send([FromServices] Producer producer, [FromBody] Compra compra)
         {
             _logger.LogInformation("Producer.Send Queue-Create-Compras");
@@ -28,29 +28,5 @@ namespace Compras.Controller
             return "Mensagem enviada";
         }
 
-        // [HttpPost]
-        // [Route("save")]
-        // [AllowAnonymous]
-        // public async Task<ActionResult<Compra>> Save(
-        //     [FromServices] CompraRepository repository,
-        //     [FromBody] Compra compra)
-        // {
-        //     _logger.LogInformation("CompraRepository.Save");
-        //     if (ModelState.IsValid)
-        //     {
-        //         await repository.Save(compra);
-        //         return compra;
-        //     }
-        //     return BadRequest(ModelState);
-        // }
-
-        [HttpGet]
-        [Route("find")]
-        [AllowAnonymous]
-        public ActionResult Get([FromServices] Consumer consumer)
-        {
-            _logger.LogInformation("Get Cosumer");
-            return consumer.Get();
-        }
     }
 }
