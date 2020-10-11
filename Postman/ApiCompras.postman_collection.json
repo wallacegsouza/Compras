@@ -1,0 +1,236 @@
+{
+	"info": {
+		"_postman_id": "7fff8358-2088-4a2e-92f3-33a9d8f9d5e4",
+		"name": "ApiCompras",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "account/authenticated",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6InRlc3RlIiwiZW1haWwiOiJ0ZXN0ZUBnbWFpbC5jb20iLCJyb2xlIjoiRmlzaWNhIiwibmJmIjoxNjAyMjg3MjExLCJleHAiOjE2MDIyOTQ0MTEsImlhdCI6MTYwMjI4NzIxMX0.tMW6tuHzBU23dV1k75z7Xuo8bPxjDrJul75xaSGPA3s",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/v1/account/authenticated",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"v1",
+						"account",
+						"authenticated"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "account/pessoa-fisica",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6InRlc3RlIiwiZW1haWwiOiJ0ZXN0ZUBnbWFpbC5jb20iLCJyb2xlIjoiRmlzaWNhIiwibmJmIjoxNjAyMjU1NzM2LCJleHAiOjE2MDIyNjI5MzYsImlhdCI6MTYwMjI1NTczNn0.SZDrXr9wDICN6LeBrxzfl0o-CApVMHLUHZE-fVOQ-n0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/v1/account/pessoa-fisica",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"v1",
+						"account",
+						"pessoa-fisica"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "account/authenticated",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6InRlc3RlIiwiZW1haWwiOiJ0ZXN0ZUBnbWFpbC5jb20iLCJyb2xlIjoiRmlzaWNhIiwibmJmIjoxNjAyMjU1OTQyLCJleHAiOjE2MDIyNjMxNDIsImlhdCI6MTYwMjI1NTk0Mn0.ZICv3bPbYJ6Z0CBbyOSl5YFkGXAPPE0jFer2dmgOi-8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/v1/account/authenticated",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"v1",
+						"account",
+						"authenticated"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "account/login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Login\": \"teste\",\r\n    \"Senha\": \"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/v1/account/login",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"v1",
+						"account",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "clientes",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6InRlc3RlIiwiZW1haWwiOiJ0ZXN0ZUBnbWFpbC5jb20iLCJyb2xlIjoiRmlzaWNhIiwibmJmIjoxNjAyMjc5ODEyLCJleHAiOjE2MDIyODcwMTIsImlhdCI6MTYwMjI3OTgxMn0.3wO7kp8q77ayB7a169qlXU11G2lLbxl8dWlodj6r3Wc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/v1/clientes",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"v1",
+						"clientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "clientes",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"login\": \"Login\",\n\t\"senha\": \"Senha\",\n\t\"Email\": \"Email@email.email\"\n}"
+				},
+				"url": {
+					"raw": "localhost:5000/v1/clientes",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"v1",
+						"clientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "compras",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Valor\": 999,\r\n    \"Data\": \"2020-11-11T00:14:41.287Z\",\r\n    \"Itens\": [{ \r\n        \"Quantidade\": 3,\r\n        \"ItemId\": 1\r\n    }]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/v1/compras",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"v1",
+						"compras"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "compras/find",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/v1/compras/find",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"v1",
+						"compras",
+						"find"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
