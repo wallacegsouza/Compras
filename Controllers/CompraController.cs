@@ -1,15 +1,15 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
-using Compras.Models;
 
+using Compras.Models;
 using Compras.Messaging;
 
 namespace Compras.Controller
 {
     [ApiController]
     [Route("v1/compras")]
-    public class CompraController
+    public class CompraController : ControllerBase
     {
         private readonly ILogger _logger;
 
@@ -24,10 +24,25 @@ namespace Compras.Controller
         public string Send([FromServices] Producer producer, [FromBody] Compra compra)
         {
             _logger.LogInformation("Producer.Send Queue-Create-Compras");
-            _logger.LogInformation(compra.ToString());
             producer.Publish(compra);
             return "Mensagem enviada";
         }
+
+        // [HttpPost]
+        // [Route("save")]
+        // [AllowAnonymous]
+        // public async Task<ActionResult<Compra>> Save(
+        //     [FromServices] CompraRepository repository,
+        //     [FromBody] Compra compra)
+        // {
+        //     _logger.LogInformation("CompraRepository.Save");
+        //     if (ModelState.IsValid)
+        //     {
+        //         await repository.Save(compra);
+        //         return compra;
+        //     }
+        //     return BadRequest(ModelState);
+        // }
 
         [HttpGet]
         [Route("find")]
