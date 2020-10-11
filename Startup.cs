@@ -50,8 +50,8 @@ namespace Compras
             services.AddScoped<TokenService, TokenService>();
             services.AddScoped<ClienteRepository, ClienteRepository>();
             services.AddScoped<CompraRepository, CompraRepository>();
-
-            services.AddControllers();
+            services.AddControllers()
+                .AddNewtonsoftJson(); // TODO rever essa dependencia
 
             var key = Encoding.ASCII.GetBytes(Configuration.GetValue<string>("Secret"));
             services.AddAuthentication(x =>
