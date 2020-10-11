@@ -11,7 +11,7 @@ namespace Compras.Seed
         public static void UseSeedQueue(this IApplicationBuilder app)
         {
             // TODO: mudar para um check no healthcheck do broker (http://localhost:15672/api/healthchecks/node)
-            Thread.Sleep(12000);
+            Thread.Sleep(15000);
             using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
                 var producer = serviceScope.ServiceProvider.GetService<Producer>();

@@ -19,23 +19,16 @@ VALUES
 CREATE TABLE Compras (
     Id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     Valor DECIMAL(11, 2) NOT NULL,
-    DataVenda DATETIME NOT NULL,
-    Itens JSON
-)
+    DataVenda DATETIME NOT NULL
+ )
 ENGINE=InnoDB
 ;
 
-INSERT INTO Compras (Valor, DataVenda, Itens)
+INSERT INTO Compras (Valor, DataVenda)
 VALUES
-    ( 15.99, now(), JSON_ARRAY(
-        JSON_OBJECT('id', 1)
-    )),
-    ( 30.01, now(), JSON_ARRAY(
-        JSON_OBJECT('id', 2), JSON_OBJECT('id', 3)
-    )),
-    ( 123456789.11, now(), JSON_ARRAY(
-        JSON_OBJECT('id', 4), JSON_OBJECT('id', 5), JSON_OBJECT('id', 6)
-    ));
+    ( 15.99, now()),
+    ( 30.01, now()),
+    ( 123456789.11, now());
 
 CREATE TABLE Itens (
     Id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -57,3 +50,23 @@ VALUES
     ('Clear', 'Shampoo Clear', 16.9, DATE_ADD(NOW(), INTERVAL 5 YEAR)),
     ('Cheetos Mix', 'Salgadinho Elma Chips Cheetos', 5.5, DATE_ADD(NOW(), INTERVAL 12 YEAR)),
     ('AN-225', 'Aeronave Antonov 225', 44, DATE_ADD(NOW(), INTERVAL 50 YEAR));
+
+CREATE TABLE ItemCompra (
+    ItemId INT(11) UNSIGNED NOT NULL,
+    CompraId INT(11) UNSIGNED NOT NULL,
+    Quantidade INT NOT NULL,
+    PRIMARY KEY (ItemId, CompraId),
+    CONSTRAINT FK_Item FOREIGN KEY (ItemId) REFERENCES Itens(Id),
+    CONSTRAINT FK_Compra FOREIGN KEY (CompraId) REFERENCES Compras(Id)
+)
+ENGINE=InnoDB
+;
+
+INSERT INTO ItemCompra (ItemId, CompraId)
+VALUES
+    (1, 1),
+    (2, 1),
+    (3, 2),
+    (4, 3),
+    (5, 3),
+    (6, 3);

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Compras.Models
@@ -13,5 +14,6 @@ namespace Compras.Models
         public DateTime DataValidade { get; set; }
         private string UnidadeMedida { get; set; }
         private string Quantificador { get; set; }
+        public ICollection<ItemCompra> Compras { get; set; }
     }
 }
