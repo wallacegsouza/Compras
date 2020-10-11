@@ -55,10 +55,7 @@ namespace Compras.Controller
                 await context.SaveChangesAsync();
                 return cliente;
             }
-            else
-            {
-                return BadRequest(ModelState);
-            }
+            return BadRequest(ModelState);
         }
     }
 }
