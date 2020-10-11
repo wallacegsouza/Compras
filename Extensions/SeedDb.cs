@@ -12,7 +12,6 @@ namespace Compras.Seed
             using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
             using (var context = serviceScope.ServiceProvider.GetService<DataContext>())
             {
-                //your development/live logic here eg:
                 if(development)
                     context.Seed();
             }
