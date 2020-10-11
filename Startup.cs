@@ -1,24 +1,20 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System.Text;
-
-using Compras.Seed;
-using Compras.Repositories;
-using Compras.Data;
 using Microsoft.EntityFrameworkCore;
-using Compras.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+
+
+using Compras.Seed;
+using Compras.Data;
+using Compras.Services;
+using Compras.Extension;
+using Compras.Messaging;
+using Compras.Repositories;
 
 namespace Compras
 {
@@ -33,8 +29,6 @@ namespace Compras
         public IConfiguration Configuration { get; }
         public IWebHostEnvironment Env { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // public void ConfigureServices(IServiceCollection services, IWebHostEnvironment env)
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors(); 
@@ -49,11 +43,16 @@ namespace Compras
                 services.AddDbContext<InMemoryDataContext>(opt => opt.UseInMemoryDatabase("Database"));
                 services.AddScoped<DataContext, InMemoryDataContext>();
             }
-
+            
+            services.AddScoped<ConnectionBroker, ConnectionBroker>();
+            services.AddScoped<Producer, Producer>();
+            services.AddScoped<Consumer, Consumer>();
             services.AddScoped<TokenService, TokenService>();
             services.AddScoped<ClienteRepository, ClienteRepository>();
+            services.AddScoped<CompraRepository, CompraRepository>();
 
             services.AddControllers();
+
             var key = Encoding.ASCII.GetBytes(Configuration.GetValue<string>("Secret"));
             services.AddAuthentication(x =>
             {
@@ -85,6 +84,11 @@ namespace Compras
             if (!env.IsEnvironment("Docker"))
             {
                 app.UseHttpsRedirection();
+            }
+            else
+            {
+                app.UseSeedQueue();
+                app.UseConsumerBrokerCompraCreate();
             }
 
             app.UseRouting();

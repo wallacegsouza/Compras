@@ -3,10 +3,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Logging;
 
 using Compras.Data;
 using Compras.Models;
-using Microsoft.Extensions.Logging;
 
 namespace Compras.Controller
 {
@@ -16,7 +16,7 @@ namespace Compras.Controller
     {
         private readonly ILogger _logger;
 
-        public ClienteController(ILogger<Cliente> logger)
+        public ClienteController(ILogger<ClienteController> logger)
         {
             _logger = logger;
         }
