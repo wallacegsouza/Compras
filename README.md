@@ -21,7 +21,7 @@ Para limpar as imagens e volumes criados
 
 ```
 
-Usuario para testar a aplucação
+Usuario para testar a aplicação
 
 ```bash
 > curl --location --request POST 'localhost:5000/v1/account/login' \
