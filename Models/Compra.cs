@@ -10,7 +10,7 @@ namespace Compras.Models
         [Key]
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Campo obrigatório")]
+        [Range(0.01, Double.MaxValue)]
         public double Valor { get; set; }
 
         [Required(ErrorMessage = "Campo obrigatório")]

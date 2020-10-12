@@ -8,7 +8,7 @@ namespace Compras.Models
         public int ItemId { get; set; }
         public Compra Compra { get; set; }
         public int CompraId { get; set; }
-        public int Quantidade { get; set; }
+        public uint Quantidade { get; set; }
 
         public override string ToString()
         {
