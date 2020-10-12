@@ -20,3 +20,15 @@ Para limpar as imagens e volumes criados
 > docker-compose down -v && docker rmi api-compras
 
 ```
+
+Usuario para testar a aplucação
+
+```bash
+> curl --location --request POST 'localhost:5000/v1/account/login' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "Login": "teste",
+    "Senha": "123456"
+}'
+
+```
