@@ -34,8 +34,12 @@ namespace Compras
             services.AddCors(); 
             if (Env.IsEnvironment("Docker"))
             {
+                // TODO criar retry connection e remover Thread.Sleep
                 var connectionString = Configuration["mysqlconnection:connectionString"];
-                services.AddDbContext<MysqlDataContext>(opt => opt.UseMySQL(connectionString));
+                services.AddDbContextPool<MysqlDataContext>(opt => {
+                    opt.UseMySQL(connectionString);
+                    opt.EnableDetailedErrors();
+                });
                 services.AddScoped<DataContext, MysqlDataContext>();
             }
             else if (Env.IsDevelopment())
